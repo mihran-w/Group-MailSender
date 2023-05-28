@@ -1,0 +1,5 @@
+smtplib
+pandas
+xlwt
+email-to
+colorama

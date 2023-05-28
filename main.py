@@ -1,18 +1,23 @@
-import smtplib
 import pandas as pd
+import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
-# Set up email credentials
-smtp_server = 'smtp.gmail.com'
-smtp_port = 587
-smtp_username = 'abs.tbzmed@gmail.com'
-smtp_password = 'spikbkkpatwjzndl' # r2E;vsA5D4#Q2q
+from colorama import Fore
+from time import sleep
 
-# Set up email content
-email_subject = 'تاثیر شاخص توانایی کارآفرینانه در نانوفناوری'
-email_body = """\
-فعال محترم عرصه نانو
+your_email = "abs.tbzmed@gmail.com"
+your_password = "spikbkkpatwjzndl"
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.ehlo()
+server.login(your_email, your_password)
+
+email_list = pd.read_excel('test.xlsx')
+
+emails = email_list['Email']
+message = """فعال محترم عرصه نانو
 سلام
 توجه به توانایی و مهارت های فردی در حوزه نوآوری و کارآفرینی امری بسیار مهم است. 
 هدف پرسشنامه ی پیش رو بررسی توانمندی های افراد جهت استفاده از فرصت هایی که در زمینه کارآفرینی و فناوری نانو برای آن ها پیش می آید است .
@@ -24,19 +29,21 @@ email_body = """\
 لینک پرسشنامه
 https://survey.porsline.ir/s/qyJq56Q
 """
-# Read Excel file
-excel_file = pd.read_excel('test.xlsx')
-# Set up email message
-msg = MIMEMultipart()
-msg['Subject'] = email_subject
-msg['From'] = smtp_username
-msg['Cc'] = ', '.join(excel_file['Email'])
-msg.attach(MIMEText(email_body))
+for i in range(len(emails)):
+    try:
+        
+        msg = MIMEMultipart()
+        msg['Subject'] = 'تاثیر شاخص توانایی کارآفرینانه در نانوفناوری'
+        msg['From'] = your_email
+        msg['To'] = emails[i]
+        msg.attach(MIMEText(message))
+        server.sendmail(your_email, emails[i], msg.as_string())
+        print(Fore.GREEN + "Email Was Successfully Sent To : ", emails[i])
+        sleep(2)
+    except Exception as e:
+        print(Fore.RED +"There Was An Error Sending Email To : ", emails[i])
 
-# Send email
-with smtplib.SMTP(smtp_server, smtp_port)as server:
-    server.ehlo()
-    server.starttls()
-    server.login(smtp_username, smtp_password)
-    server.sendmail(smtp_username, excel_file['Email'], msg.as_string(), msg['Cc'].split(','))
-    server.quit()
+print(Fore.WHITE)
+server.close()
+
+
