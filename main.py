@@ -5,7 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 # Set up email credentials
 smtp_server = 'smtp.gmail.com'
-smtp_port = 25
+smtp_port = 587
 smtp_username = 'abs.tbzmed@gmail.com'
 smtp_password = 'spikbkkpatwjzndl' # r2E;vsA5D4#Q2q
 
@@ -30,7 +30,7 @@ excel_file = pd.read_excel('test.xlsx')
 msg = MIMEMultipart()
 msg['Subject'] = email_subject
 msg['From'] = smtp_username
-msg['Bcc'] = ', '.join(excel_file['Email'])
+msg['Cc'] = ', '.join(excel_file['Email'])
 msg.attach(MIMEText(email_body))
 
 # Send email
@@ -38,5 +38,5 @@ with smtplib.SMTP(smtp_server, smtp_port)as server:
     server.ehlo()
     server.starttls()
     server.login(smtp_username, smtp_password)
-    server.sendmail(smtp_username, excel_file['Email'], msg.as_string())
+    server.sendmail(smtp_username, excel_file['Email'], msg.as_string(), msg['Cc'].split(','))
     server.quit()
