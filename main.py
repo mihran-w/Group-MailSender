@@ -14,7 +14,7 @@ server.starttls()
 server.ehlo()
 server.login(your_email, your_password)
 
-email_list = pd.read_excel('emails.xlsx')
+email_list = pd.read_excel('test.xlsx')
 
 emails = email_list['Email']
 message = """فعال محترم عرصه نانو
@@ -55,10 +55,10 @@ for i in range(len(emails)):
         msg['To'] = emails[i]
         msg.attach(MIMEText(message))
         server.sendmail(your_email, emails[i], msg.as_string())
-        print(Fore.GREEN + "Email Was Successfully Sent To : ", emails[i])
+        print(Fore.GREEN + i +") Email Was Successfully Sent To : ", emails[i])
         sleep(2)
     except Exception as e:
-        print(Fore.RED +"There Was An Error Sending Email To : ", emails[i])
+        print(Fore.RED + i +") There Was An Error Sending Email To : ", emails[i])
 
 print(Fore.WHITE)
 server.close()
