@@ -50,7 +50,7 @@ z.akbarimoghadam77@gmail.com"""
 for i in range(len(emails)):
     try:
         msg = MIMEMultipart()
-        msg['Subject'] = 'تاثیر شاخص توانایی کارآفرینانه در نانوفناوری'
+        msg['Subject'] = 'بررسي توانایی و مهارت افراد در حوزه کارآفرینی(برای فعالین عرصه نانو)'
         msg['From'] = your_email
         msg['To'] = emails[i]
         msg.attach(MIMEText(message))
