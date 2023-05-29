@@ -9,7 +9,7 @@ from time import sleep
 your_email = "abs.tbzmed@gmail.com"
 your_password = "spikbkkpatwjzndl"
 
-server = smtplib.SMTP('smtp.gmail.com', 587)
+server = smtplib.SMTP('smtp.gmail.com', 587, timeout=3600)
 server.starttls()
 server.ehlo()
 server.login(your_email, your_password)
