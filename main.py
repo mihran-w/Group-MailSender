@@ -55,10 +55,10 @@ for i in range(len(emails)):
         msg['To'] = emails[i]
         msg.attach(MIMEText(message))
         server.sendmail(your_email, emails[i], msg.as_string())
-        print(Fore.GREEN + i +") Email Was Successfully Sent To : ", emails[i])
+        print(Fore.GREEN + f"{i}) Email Was Successfully Sent To : ", emails[i])
         sleep(2)
     except Exception as e:
-        print(Fore.RED + i +") There Was An Error Sending Email To : ", emails[i])
+        print(Fore.RED + f"{i}) There Was An Error Sending Email To : ", emails[i])
 
 print(Fore.WHITE)
 server.close()
