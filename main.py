@@ -14,7 +14,7 @@ server.starttls()
 server.ehlo()
 server.login(your_email, your_password)
 
-email_list = pd.read_excel('test.xlsx')
+email_list = pd.read_excel('emails.xlsx')
 
 emails = email_list['Email']
 message = """فعال محترم عرصه نانو
