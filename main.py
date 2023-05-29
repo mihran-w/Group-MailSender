@@ -47,6 +47,9 @@ https://survey.porsline.ir/s/qyJq56Q
 دانشگاه علوم پزشکی تبریز
 
 z.akbarimoghadam77@gmail.com"""
+fs = open('success.txt', 'w')
+fe = open('errors.txt', 'w')
+
 for i in range(len(emails)):
     try:
         msg = MIMEMultipart()
@@ -55,10 +58,14 @@ for i in range(len(emails)):
         msg['To'] = emails[i]
         msg.attach(MIMEText(message))
         server.sendmail(your_email, emails[i], msg.as_string())
-        print(Fore.GREEN + f"{i}) Email Was Successfully Sent To : ", emails[i])
+        fs.write(f'{i + 1} : {emails[i]}\n')
+        print(Fore.GREEN + f"{i + 1}) Email Was Successfully Sent To : ", emails[i])
         sleep(2)
     except Exception as e:
-        print(Fore.RED + f"{i}) There Was An Error Sending Email To : ", emails[i])
+        fe.write(f'{i + 1} : {emails[i]}\n')
+        fe.write(f'{e}\n')
+        fe.write(f'---------------------------------\n')
+        print(Fore.RED + f"{i + 1}) There Was An Error Sending Email To : ", emails[i])
 
 print(Fore.WHITE)
 server.close()
