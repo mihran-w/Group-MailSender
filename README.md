@@ -8,4 +8,4 @@
  pip install requirements.txt
 ```
 # Whats SMTP
-[Click here to get more information]([http://www.mihranw.ir/?i=1](https://www.cloudflare.com/learning/email-security/what-is-smtp/))
+[Click here to get more information](https://www.cloudflare.com/learning/email-security/what-is-smtp/)
